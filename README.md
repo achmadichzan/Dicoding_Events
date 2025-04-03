@@ -23,9 +23,10 @@ A modern **Kotlin Multiplatform** app for browsing and searching events using **
    git clone https://github.com/your-username/dicoding-events.git
    cd dicoding-events
    ```  
-2. Open the project in **Android Studio (Giraffe or newer)**  
-3. Connect an **Android Emulator or Device**  
-4. Run the app! 🎉  
+2. Open the project in **Android Studio (Meerkat or newer)**
+3. Remember to add the **BASE_URL** on your **local.properties**
+4. Connect an **Android Emulator or Device**  
+5. Run the app! 🎉  
 
 ## 📸 Screenshots  
 <table>
@@ -49,6 +50,7 @@ This app follows the **MVI (Model-View-Intent) architecture**, ensuring a predic
 
 ## 📬 API Reference  
 This app interacts with the **Dicoding Events API**:  
+- **Base URL** `GET https://event-api.dicoding.dev/`
 - **Get All Events:** `GET https://event-api.dicoding.dev/events`  
 - **Search Events:** `GET https://event-api.dicoding.dev/events?q={keyword}`  
 - **Get Event Detail:** `GET https://event-api.dicoding.dev/events/{id}`  
