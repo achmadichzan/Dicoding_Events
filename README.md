@@ -36,9 +36,9 @@ A modern **Kotlin** app for browsing and searching events using **MVI architectu
     <th>Search Feature</th>
   </tr>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/d7b2725d-7a9a-4d60-9293-dfb3440d351d" width="300"/></td>
-    <td><img src="https://github.com/user-attachments/assets/07b1d7b4-3227-4a6a-a7f0-19b0a83d4e21" width="300"/></td>
-    <td><img src="https://github.com/user-attachments/assets/7102c276-7c30-4480-9c45-7537d0478ffc" width="300"/></td>
+    <td><img src="https://github.com/user-attachments/assets/d7b2725d-7a9a-4d60-9293-dfb3440d351d" width="320"/></td>
+    <td><img src="https://github.com/user-attachments/assets/07b1d7b4-3227-4a6a-a7f0-19b0a83d4e21" width="320"/></td>
+    <td><img src="https://github.com/user-attachments/assets/7102c276-7c30-4480-9c45-7537d0478ffc" width="320"/></td>
   </tr>
 </table>
 
