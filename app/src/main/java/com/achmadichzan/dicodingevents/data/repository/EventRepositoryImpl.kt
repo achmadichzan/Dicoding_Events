@@ -1,8 +1,8 @@
 package com.achmadichzan.dicodingevents.data.repository
 
 import com.achmadichzan.dicodingevents.data.network.EventApiService
+import com.achmadichzan.dicodingevents.domain.model.Event
 import com.achmadichzan.dicodingevents.domain.model.EventResponse
-import com.achmadichzan.dicodingevents.domain.model.ListEventsItem
 import com.achmadichzan.dicodingevents.domain.repository.EventRepository
 
 class EventRepositoryImpl(private val apiService: EventApiService) : EventRepository {
@@ -10,8 +10,9 @@ class EventRepositoryImpl(private val apiService: EventApiService) : EventReposi
         return apiService.getAllEvents()
     }
 
-    override suspend fun getEventDetail(eventId: Int): ListEventsItem {
+    override suspend fun getEventDetail(eventId: Int): Event? {
         println("Fetching event detail for ID: $eventId")
-        return apiService.getEventDetail(eventId).listEvents?.find { eventId == it.id } ?: ListEventsItem(id = 9217)
+        val response = apiService.getEventDetail(eventId)
+        return response.event ?: throw Exception("Event not found")
     }
 }

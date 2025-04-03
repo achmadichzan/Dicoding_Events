@@ -7,12 +7,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.achmadichzan.dicodingevents.domain.model.ListEventsItem
+import com.achmadichzan.dicodingevents.domain.model.Event
 
 @Composable
 fun EventHeader(
     modifier: Modifier = Modifier,
-    event: ListEventsItem
+    event: Event
 ) {
     ListItem(
         modifier = modifier,

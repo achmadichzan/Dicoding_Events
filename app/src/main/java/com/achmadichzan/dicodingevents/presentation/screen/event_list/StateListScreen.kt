@@ -1,4 +1,4 @@
-package com.achmadichzan.dicodingevents.presentation.screen
+package com.achmadichzan.dicodingevents.presentation.screen.event_list
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,8 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.achmadichzan.dicodingevents.presentation.navigation.Route.EventDetail
-import com.achmadichzan.dicodingevents.presentation.screen.event_detail.EventDetailScreen
-import com.achmadichzan.dicodingevents.presentation.screen.event_list.EventListScreen
 import com.achmadichzan.dicodingevents.presentation.screen.EventViewModel
 import com.achmadichzan.dicodingevents.presentation.util.EventIntent
 import com.achmadichzan.dicodingevents.presentation.util.EventState
@@ -23,18 +21,11 @@ import com.achmadichzan.dicodingevents.presentation.util.EventState
 fun StateListScreen(
     viewModel: EventViewModel,
     navController: NavController,
-    eventId: Int? = 9217
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         viewModel.handleIntent(EventIntent.LoadAllEvents)
-    }
-
-    LaunchedEffect(eventId) {
-        eventId?.let {
-            viewModel.handleIntent(EventIntent.LoadEventDetail(it))
-        }
     }
 
     when (state) {
@@ -66,9 +57,6 @@ fun StateListScreen(
                 }
             }
         }
-
-        is EventState.SuccessDetail -> {
-            EventDetailScreen(event = (state as EventState.SuccessDetail).event)
-        }
+        else -> {}
     }
 }

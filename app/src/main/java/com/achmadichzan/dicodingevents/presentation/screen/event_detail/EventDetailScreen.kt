@@ -13,15 +13,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import com.achmadichzan.dicodingevents.domain.model.ListEventsItem
+import com.achmadichzan.dicodingevents.domain.model.Event
 
 @Composable
-fun EventDetailScreen(event: ListEventsItem) {
+fun EventDetailScreen(event: Event?) {
     Surface {
         Column(modifier = Modifier.padding(16.dp)) {
             AsyncImage(
-                model = event.mediaCover,
-                contentDescription = event.name,
+                model = event?.mediaCover,
+                contentDescription = event?.name,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(200.dp),
@@ -29,15 +29,15 @@ fun EventDetailScreen(event: ListEventsItem) {
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = event.name ?: "Unknown Event",
+                text = event?.name ?: "Unknown Event",
                 style = MaterialTheme.typography.headlineMedium
             )
             Text(
-                text = event.description ?: "No Description",
+                text = event?.description ?: "No Description",
                 style = MaterialTheme.typography.bodyMedium
             )
             Text(
-                text = "City: ${event.cityName ?: "Unknown"}",
+                text = "City: ${event?.cityName ?: "Unknown"}",
                 style = MaterialTheme.typography.bodyMedium
             )
         }

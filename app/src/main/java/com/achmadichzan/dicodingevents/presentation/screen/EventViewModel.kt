@@ -43,10 +43,8 @@ class EventViewModel @Inject constructor(
             _state.update { EventState.Loading }
             try {
                 val event = repository.getEventDetail(eventId)
-                println("EventViewModel Fetched Event: $event")
                 _state.update { EventState.SuccessDetail(event) }
             } catch (e: Exception) {
-                println("EventViewModel Error fetching event detail: $e")
                 _state.update { EventState.Error(e.localizedMessage ?: "Unknown error") }
             }
         }
