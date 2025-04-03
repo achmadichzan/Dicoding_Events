@@ -48,9 +48,6 @@ fun EventSearch(
                 },
                 shape = RoundedCornerShape(12.dp),
                 singleLine = true,
-                textStyle = TextStyle(
-                    fontSize = 12.sp
-                ),
                 modifier = Modifier
                     .weight(1f)
                     .padding(vertical = 5.dp)

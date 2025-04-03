@@ -82,7 +82,7 @@ class EventViewModel @Inject constructor(
     private fun observeSearchQuery() {
         viewModelScope.launch {
             _searchQuery
-                .debounce(1_000)
+                .debounce(1_500)
                 .distinctUntilChanged()
                 .collectLatest { keyword ->
                     if (keyword.isNotBlank()) {
