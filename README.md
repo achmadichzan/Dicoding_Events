@@ -2,7 +2,7 @@
 A modern **Kotlin** app for browsing and searching events using **MVI architecture** and **Ktor Client** for networking.  
 
 ## ✨ Features  
-✅ Browse upcoming events  
+✅ Browse events  
 ✅ Search events with **debounce** support  
 ✅ View detailed event information  
 ✅ Smooth **navigation animations**  
