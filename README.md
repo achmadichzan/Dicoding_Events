@@ -1,5 +1,5 @@
 # 🎟️ Dicoding Events App  
-A modern **Kotlin Multiplatform** app for browsing and searching events using **MVI architecture** and **Ktor Client** for networking.  
+A modern **Kotlin** app for browsing and searching events using **MVI architecture** and **Ktor Client** for networking.  
 
 ## ✨ Features  
 ✅ Browse upcoming events  
