@@ -20,17 +20,17 @@ fun StateDetailScreen(
     viewModel: EventViewModel,
     eventId: Int?
 ) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
+    Surface {
+        val state by viewModel.state.collectAsStateWithLifecycle()
 
-    LaunchedEffect(eventId) {
-        eventId?.let {
-            viewModel.handleIntent(EventIntent.LoadEventDetail(it))
+        LaunchedEffect(eventId) {
+            eventId?.let {
+                viewModel.handleIntent(EventIntent.LoadEventDetail(it))
+            }
         }
-    }
 
-    when(state){
-        EventState.Loading -> {
-            Surface {
+        when(state){
+            EventState.Loading -> {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
@@ -38,12 +38,10 @@ fun StateDetailScreen(
                     CircularProgressIndicator()
                 }
             }
-        }
-        is EventState.SuccessDetail -> {
-            EventDetailScreen(event = (state as EventState.SuccessDetail).event)
-        }
-        is EventState.Error -> {
-            Surface {
+            is EventState.SuccessDetail -> {
+                EventDetailScreen(event = (state as EventState.SuccessDetail).event)
+            }
+            is EventState.Error -> {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
@@ -51,7 +49,7 @@ fun StateDetailScreen(
                     Text(text = "Error: ${(state as EventState.Error).message}")
                 }
             }
+            else -> Unit
         }
-        else -> {}
     }
 }

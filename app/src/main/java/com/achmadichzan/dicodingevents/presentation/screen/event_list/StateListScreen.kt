@@ -22,41 +22,39 @@ fun StateListScreen(
     viewModel: EventViewModel,
     navController: NavController,
 ) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
+    Surface {
+        val state by viewModel.state.collectAsStateWithLifecycle()
 
-    LaunchedEffect(Unit) {
-        viewModel.handleIntent(EventIntent.LoadAllEvents)
-    }
+        LaunchedEffect(Unit) {
+            viewModel.handleIntent(EventIntent.LoadAllEvents)
+        }
 
-    when (state) {
-        is EventState.Loading -> {
-            Surface {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator()
-                }
+        when (state) {
+            is EventState.Loading -> {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
             }
-        }
-        is EventState.Success -> {
-            EventListScreen(
-                events = (state as EventState.Success).events,
-                onEventClick = { eventId ->
-                    navController.navigate(EventDetail(eventId))
-                }
-            )
-        }
-        is EventState.Error -> {
-            Surface {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(text = "Error: ${(state as EventState.Error).message}")
-                }
+            is EventState.Success -> {
+                EventListScreen(
+                    events = (state as EventState.Success).events,
+                    onEventClick = { eventId ->
+                        navController.navigate(EventDetail(eventId))
+                    }
+                )
             }
+            is EventState.Error -> {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(text = "Error: ${(state as EventState.Error).message}")
+                    }
+            }
+            else -> Unit
         }
-        else -> {}
     }
 }

@@ -12,8 +12,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import com.achmadichzan.dicodingevents.R
 import com.achmadichzan.dicodingevents.domain.model.ListEventsItem
 
 @Composable
@@ -21,22 +23,32 @@ fun EventItem(event: ListEventsItem, onEventClick: (Int) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
+            .padding(vertical = 5.dp)
             .clickable { onEventClick(event.id) },
-//        elevation = 4.dp
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
+
             AsyncImage(
                 model = event.mediaCover,
                 contentDescription = event.name,
+                error = painterResource(R.drawable.moai),
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(150.dp),
                 contentScale = ContentScale.Crop
             )
+
             Spacer(modifier = Modifier.height(8.dp))
-            Text(text = event.name ?: "Unknown Event", style = MaterialTheme.typography.headlineSmall)
-            Text(text = event.cityName ?: "Unknown City", style = MaterialTheme.typography.bodyMedium)
+
+            Text(
+                text = event.name ?: "Unknown Event",
+                style = MaterialTheme.typography.titleMedium
+            )
+
+            Text(
+                text = event.cityName ?: "Unknown City",
+                style = MaterialTheme.typography.bodyMedium
+            )
         }
     }
 }
