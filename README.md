@@ -14,7 +14,7 @@ A modern **Kotlin Multiplatform** app for browsing and searching events using **
 - **Ktor Client** – Lightweight networking library  
 - **Hilt (Dagger-Hilt)** – Dependency injection  
 - **StateFlow & MVI** – Unidirectional data flow  
-- **Navigation Component** – Manages app navigation  
+- **Type-Safe Navigation** – Manages app navigation  
 - **Kotlin Coroutines** – Asynchronous programming  
 
 ## 🚀 Setup & Installation  
