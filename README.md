@@ -54,9 +54,9 @@ This app interacts with the **Dicoding Events API**:
 - **Get Event Detail:** `GET https://event-api.dicoding.dev/events/{id}`  
 
 ## 🛠️ Future Enhancements  
+- [ ] **Loading UI** for smooth loading  
 - [ ] **Offline support** with Room database  
-- [ ] **Dark Mode support**  
-- [ ] **User authentication** for event registration  
+- [ ] **Dark Mode support** with Preferences 
 
 ## 🤝 Contributing  
 Contributions are welcome! Fork the repo, create a feature branch, and submit a **Pull Request**.  
