@@ -30,10 +30,10 @@ A modern **Kotlin Multiplatform** app for browsing and searching events using **
 ## 📸 Screenshots  
 | Event List | Event Detail | Search Feature |
 |------------|-------------|---------------|
-| ![List](![event_list](https://github.com/user-attachments/assets/d7b2725d-7a9a-4d60-9293-dfb3440d351d)
-) | ![Detail](![event_detail](https://github.com/user-attachments/assets/07b1d7b4-3227-4a6a-a7f0-19b0a83d4e21)
-) | ![Search](![search_feature](https://github.com/user-attachments/assets/7102c276-7c30-4480-9c45-7537d0478ffc)
-) |  
+| ![event_list](https://github.com/user-attachments/assets/d7b2725d-7a9a-4d60-9293-dfb3440d351d)
+| ![Detail](![event_detail](https://github.com/user-attachments/assets/07b1d7b4-3227-4a6a-a7f0-19b0a83d4e21)
+| ![Search](![search_feature](https://github.com/user-attachments/assets/7102c276-7c30-4480-9c45-7537d0478ffc)
+|  
 
 ## 📜 Architecture  
 This app follows the **MVI (Model-View-Intent) architecture**, ensuring a predictable state-driven UI:  
