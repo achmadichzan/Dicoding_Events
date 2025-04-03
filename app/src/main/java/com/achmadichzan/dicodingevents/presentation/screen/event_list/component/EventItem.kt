@@ -1,16 +1,15 @@
 package com.achmadichzan.dicodingevents.presentation.screen.event_list.component
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Card
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -20,35 +19,32 @@ import com.achmadichzan.dicodingevents.domain.model.ListEventsItem
 
 @Composable
 fun EventItem(event: ListEventsItem, onEventClick: (Int) -> Unit) {
-    Card(
+    ListItem(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 5.dp)
             .clickable { onEventClick(event.id) },
-    ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-
+        leadingContent = {
             AsyncImage(
-                model = event.mediaCover,
+                model = event.imageLogo,
                 contentDescription = event.name,
                 error = painterResource(R.drawable.moai),
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(150.dp),
+                    .size(120.dp)
+                    .clip(RoundedCornerShape(10.dp)),
                 contentScale = ContentScale.Crop
             )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
+        },
+        headlineContent = {
             Text(
                 text = event.name ?: "Unknown Event",
                 style = MaterialTheme.typography.titleMedium
             )
-
+        },
+        supportingContent = {
             Text(
                 text = event.cityName ?: "Unknown City",
                 style = MaterialTheme.typography.bodyMedium
             )
-        }
-    }
+        },
+    )
 }

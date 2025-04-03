@@ -23,6 +23,7 @@ data class ListEventsItem(
     @SerialName("name") val name: String? = null,
     @SerialName("description") val description: String? = null,
     @SerialName("mediaCover") val mediaCover: String? = null,
+    @SerialName("imageLogo") val imageLogo: String? = null,
     @SerialName("registrants") val registrants: Int? = null,
     @SerialName("quota") val quota: Int? = null,
     @SerialName("category") val category: String? = null,

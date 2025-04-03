@@ -2,6 +2,7 @@ package com.achmadichzan.dicodingevents.data.network
 
 import com.achmadichzan.dicodingevents.domain.model.DetailEventResponse
 import com.achmadichzan.dicodingevents.domain.model.EventResponse
+import com.achmadichzan.dicodingevents.domain.model.ListEventsItem
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
@@ -16,7 +17,8 @@ class EventApiService(private val client: HttpClient) {
         return client.get("events/$eventId").body()
     }
 
-    companion object {
-        internal const val BASE_URL = "https://event-api.dicoding.dev/"
+    suspend fun searchEvents(keyword: String): EventResponse {
+        val url = "events?active=-1&q=$keyword"
+        return client.get(url).body()
     }
 }

@@ -1,5 +1,6 @@
 package com.achmadichzan.dicodingevents.data.di
 
+import com.achmadichzan.dicodingevents.BuildConfig
 import com.achmadichzan.dicodingevents.data.network.EventApiService
 import com.achmadichzan.dicodingevents.data.repository.EventRepositoryImpl
 import com.achmadichzan.dicodingevents.domain.repository.EventRepository
@@ -27,7 +28,7 @@ object AppModule {
     fun provideHttpClient(): HttpClient {
         return HttpClient(CIO) {
             defaultRequest {
-                url(EventApiService.BASE_URL)
+                url(BuildConfig.BASE_URL)
                 header(HttpHeaders.ContentType, ContentType.Application.Json)
             }
 
