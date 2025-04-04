@@ -20,7 +20,7 @@ A modern **Kotlin** app for browsing and searching events using **MVI architectu
 ## 🚀 Setup & Installation  
 1. Clone this repository:  
    ```bash
-   git clone [https://github.com/achmadichzan/Dicoding_Events.git]
+   git clone https://github.com/achmadichzan/Dicoding_Events.git
    cd dicoding-events
    ```  
 2. Open the project in **Android Studio (Meerkat or newer)**
