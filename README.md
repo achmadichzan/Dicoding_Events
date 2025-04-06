@@ -25,8 +25,8 @@ A modern **Kotlin** app for browsing and searching events using **MVI architectu
    ```  
 2. Open the project in **Android Studio (Meerkat or newer)**
 3. Remember to add the **BASE_URL** on your **local.properties** (BASE_URL=https://event-api.dicoding.dev/)
-4. Connect an **Android Emulator or Device**  
-5. Run the app on your phone! 🎉  
+4. Connect an **Android Device**  
+5. Run the app! 🎉  
 
 ## 📸 Screenshots  
 <table>
