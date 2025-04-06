@@ -58,4 +58,6 @@ This app interacts with the **Dicoding Events API**:
 - [ ] **Dark Mode support** with Preferences 
 
 ## 🤝 Contributing  
-Contributions are welcome! Fork the repo, create a feature branch, and submit a **Pull Request**.  
+Contributions are welcome! Fork the repo, create a feature branch, and submit a **Pull Request**.
+
+# Big Thanks to Dicoding Academy 🎉
