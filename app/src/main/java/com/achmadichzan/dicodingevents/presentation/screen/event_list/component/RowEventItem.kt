@@ -1,5 +1,6 @@
 package com.achmadichzan.dicodingevents.presentation.screen.event_list.component
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -14,15 +15,17 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import coil3.compose.AsyncImage
+import coil3.compose.SubcomposeAsyncImage
 import com.achmadichzan.dicodingevents.R
 import com.achmadichzan.dicodingevents.domain.model.Event
+import com.achmadichzan.dicodingevents.presentation.ui.component.ShimmerEffect
 
 @Composable
 fun RowEventItem(event: Event?, onEventClick: (Int) -> Unit) {
@@ -43,12 +46,21 @@ fun RowEventItem(event: Event?, onEventClick: (Int) -> Unit) {
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Card(
-                modifier = Modifier.size(115.dp),
+                modifier = Modifier.size(115.dp)
+                    .align(Alignment.CenterHorizontally),
             ) {
-                AsyncImage(
+                SubcomposeAsyncImage(
                     model = event?.imageLogo,
                     contentDescription = event?.name,
-                    error = painterResource(R.drawable.moai),
+                    loading = {
+                        ShimmerEffect(modifier = Modifier.size(115.dp))
+                    },
+                    error = {
+                        Image(
+                            painter = painterResource(R.drawable.moai),
+                            contentDescription = "Error loading image"
+                        )
+                    },
                     modifier = Modifier
                         .size(115.dp),
                     contentScale = ContentScale.Crop

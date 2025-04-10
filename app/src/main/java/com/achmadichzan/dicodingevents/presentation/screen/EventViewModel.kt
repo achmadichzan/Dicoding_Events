@@ -67,8 +67,8 @@ class EventViewModel @Inject constructor(
         viewModelScope.launch {
             when (val result = repository.getAllEvents()) {
                 is DataResult.Success -> {
-                    val list = result.data.listEvents ?: emptyList()
-                    _state.update { EventState.Success(list) }
+//                    val list = result.data.listEvents ?: emptyList()
+//                    _state.update { EventState.Success(list) }
                 }
                 is DataResult.Error -> {
                     _state.update { EventState.Error(

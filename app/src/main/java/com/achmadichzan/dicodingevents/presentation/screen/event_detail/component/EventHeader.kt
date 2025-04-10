@@ -1,5 +1,6 @@
 package com.achmadichzan.dicodingevents.presentation.screen.event_detail.component
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,19 +13,28 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import coil3.compose.AsyncImage
+import coil3.compose.SubcomposeAsyncImage
 import com.achmadichzan.dicodingevents.R
 import com.achmadichzan.dicodingevents.domain.model.Event
+import com.achmadichzan.dicodingevents.presentation.ui.component.ShimmerEffect
 
 @Composable
 fun EventHeader(
     modifier: Modifier = Modifier,
     event: Event?
 ) {
-    AsyncImage(
+    SubcomposeAsyncImage(
         model = event?.mediaCover,
         contentDescription = event?.name,
-        error = painterResource(R.drawable.moai),
+        loading = {
+            ShimmerEffect(modifier = Modifier.fillMaxWidth())
+        },
+        error = {
+            Image(
+                painter = painterResource(R.drawable.moai),
+                contentDescription = "Error loading image"
+            )
+        },
         modifier = modifier
             .fillMaxWidth()
             .height(200.dp),

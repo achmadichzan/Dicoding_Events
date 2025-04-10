@@ -1,5 +1,6 @@
 package com.achmadichzan.dicodingevents.presentation.screen.event_list.component
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
@@ -14,9 +15,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import coil3.compose.AsyncImage
+import coil3.compose.SubcomposeAsyncImage
 import com.achmadichzan.dicodingevents.R
 import com.achmadichzan.dicodingevents.domain.model.Event
+import com.achmadichzan.dicodingevents.presentation.ui.component.ShimmerEffect
 
 @Composable
 fun ColumnEventItem(event: Event, onEventClick: (Int) -> Unit) {
@@ -25,10 +27,18 @@ fun ColumnEventItem(event: Event, onEventClick: (Int) -> Unit) {
             .fillMaxWidth()
             .clickable { onEventClick(event.id) },
         leadingContent = {
-            AsyncImage(
+            SubcomposeAsyncImage(
                 model = event.imageLogo,
                 contentDescription = event.name,
-                error = painterResource(R.drawable.moai),
+                loading = {
+                    ShimmerEffect(modifier = Modifier.size(120.dp))
+                },
+                error = {
+                    Image(
+                        painter = painterResource(R.drawable.moai),
+                        contentDescription = "Error loading image"
+                    )
+                },
                 modifier = Modifier
                     .size(120.dp)
                     .clip(RoundedCornerShape(10.dp)),
