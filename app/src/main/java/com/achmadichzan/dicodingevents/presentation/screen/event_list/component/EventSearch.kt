@@ -16,9 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 @Composable
 fun EventSearch(
@@ -52,7 +50,6 @@ fun EventSearch(
                 modifier = Modifier
                     .weight(1f)
                     .padding(vertical = 5.dp)
-                    .height(50.dp)
                     .imePadding()
             )
         }

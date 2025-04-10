@@ -17,16 +17,18 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.achmadichzan.dicodingevents.presentation.navigation.Route.EventDetail
 import com.achmadichzan.dicodingevents.presentation.screen.EventViewModel
+import com.achmadichzan.dicodingevents.presentation.screen.event_list.component.UpcomingEvents
 import com.achmadichzan.dicodingevents.presentation.util.EventIntent
 import com.achmadichzan.dicodingevents.presentation.util.EventState
 
 @Composable
-fun StateListScreen(
+fun StateList(
     viewModel: EventViewModel,
     navController: NavController,
 ) {
     Surface {
         val state by viewModel.state.collectAsStateWithLifecycle()
+        val upcomingEvents by viewModel.upcomingEvents.collectAsStateWithLifecycle()
 
         var searchQuery by remember { mutableStateOf("") }
 
@@ -38,6 +40,10 @@ fun StateListScreen(
             }
         }
 
+        LaunchedEffect(Unit) {
+            viewModel.handleIntent(EventIntent.LoadUpcomingEvents)
+        }
+
         when (state) {
             is EventState.Loading -> {
                 Box(
@@ -46,6 +52,14 @@ fun StateListScreen(
                 ) {
                     CircularProgressIndicator()
                 }
+            }
+            is EventState.SuccessUpcoming -> {
+                UpcomingEvents(
+                    events = (upcomingEvents as EventState.SuccessUpcoming).events,
+                    onEventClick = { eventId ->
+                        navController.navigate(EventDetail(eventId))
+                    }
+                )
             }
             is EventState.Success -> {
                 EventListScreen(
@@ -56,7 +70,6 @@ fun StateListScreen(
                     value = searchQuery,
                     onValueChange = { newValue ->
                         searchQuery = newValue
-                        viewModel.handleIntent(EventIntent.SearchEvents(newValue))
                     }
                 )
             }

@@ -27,7 +27,7 @@ fun EventHeader(
         error = painterResource(R.drawable.moai),
         modifier = modifier
             .fillMaxWidth()
-            .height(160.dp),
+            .height(200.dp),
         contentScale = ContentScale.FillWidth
     )
 

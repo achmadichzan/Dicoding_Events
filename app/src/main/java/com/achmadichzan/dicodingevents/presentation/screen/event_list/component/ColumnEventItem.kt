@@ -12,13 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.achmadichzan.dicodingevents.R
-import com.achmadichzan.dicodingevents.domain.model.ListEventsItem
+import com.achmadichzan.dicodingevents.domain.model.Event
 
 @Composable
-fun EventItem(event: ListEventsItem, onEventClick: (Int) -> Unit) {
+fun ColumnEventItem(event: Event, onEventClick: (Int) -> Unit) {
     ListItem(
         modifier = Modifier
             .fillMaxWidth()
@@ -37,7 +38,9 @@ fun EventItem(event: ListEventsItem, onEventClick: (Int) -> Unit) {
         headlineContent = {
             Text(
                 text = event.name ?: "Unknown Event",
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
+                maxLines = 4,
+                overflow = TextOverflow.Ellipsis
             )
         },
         supportingContent = {
@@ -46,5 +49,6 @@ fun EventItem(event: ListEventsItem, onEventClick: (Int) -> Unit) {
                 style = MaterialTheme.typography.bodyMedium
             )
         },
+        tonalElevation = 1.dp
     )
 }

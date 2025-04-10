@@ -1,46 +1,36 @@
 package com.achmadichzan.dicodingevents.presentation.screen.event_list
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.achmadichzan.dicodingevents.domain.model.ListEventsItem
+import com.achmadichzan.dicodingevents.domain.model.Event
+import com.achmadichzan.dicodingevents.presentation.screen.event_list.component.AllEvents
 import com.achmadichzan.dicodingevents.presentation.screen.event_list.component.EventHeadline
-import com.achmadichzan.dicodingevents.presentation.screen.event_list.component.EventItem
 import com.achmadichzan.dicodingevents.presentation.screen.event_list.component.EventSearch
 
 @Composable
 fun EventListScreen(
-    events: List<ListEventsItem>,
+    events: List<Event>,
     onEventClick: (Int) -> Unit,
     value: String,
     onValueChange: (String) -> Unit
 ) {
     Scaffold { innerPadding ->
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = innerPadding,
-            horizontalAlignment = Alignment.Start
+        Column(
+            modifier = Modifier.fillMaxSize()
+                .padding(innerPadding),
         ) {
+            EventHeadline()
 
-            item { EventHeadline() }
+            EventSearch(
+                value = value,
+                onValueChange = onValueChange
+            )
 
-            item {
-                EventSearch(
-                    value = value,
-                    onValueChange = onValueChange
-                )
-            }
-
-            items(
-                items = events,
-                key = { it.id }
-            ) { event ->
-                EventItem(event = event, onEventClick = onEventClick)
-            }
+            AllEvents(events = events, onEventClick = onEventClick)
         }
     }
 }

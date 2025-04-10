@@ -11,6 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import com.achmadichzan.dicodingevents.presentation.screen.EventViewModel
 import com.achmadichzan.dicodingevents.presentation.util.EventIntent
 import com.achmadichzan.dicodingevents.presentation.util.EventState
@@ -18,7 +19,8 @@ import com.achmadichzan.dicodingevents.presentation.util.EventState
 @Composable
 fun StateDetailScreen(
     viewModel: EventViewModel,
-    eventId: Int?
+    eventId: Int?,
+    onBackClick: () -> Unit
 ) {
     Surface {
         val state by viewModel.state.collectAsStateWithLifecycle()
@@ -39,7 +41,7 @@ fun StateDetailScreen(
                 }
             }
             is EventState.SuccessDetail -> {
-                EventDetailScreen(event = (state as EventState.SuccessDetail).event)
+                EventDetailScreen(event = (state as EventState.SuccessDetail).event, onBackClick = onBackClick)
             }
             is EventState.Error -> {
                 Box(

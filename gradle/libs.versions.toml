@@ -15,14 +15,13 @@ sandwichKtor = "2.1.0"
 androidxHilt = "1.2.0"
 hilt = "2.56.1"
 hiltCompiler = "1.2.0"
+room = "2.6.1"
 uiTextGoogleFonts = "1.7.8"
 slf4jSimple = "2.0.17"
 navigationCompose = "2.8.9"
 timber = "5.0.1"
 
 [libraries]
-# Timber
-timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 
 # Fonts
 androidx-ui-text-google-fonts = { module = "androidx.compose.ui:ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
@@ -30,7 +29,6 @@ androidx-ui-text-google-fonts = { module = "androidx.compose.ui:ui-text-google-f
 # Coil
 coil3-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
 coil3-ktor = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coilCompose" }
-#coil3-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coilCompose" }
 
 # Lifecycle
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidxLifecycle" }
@@ -61,6 +59,15 @@ hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hil
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationCompose" }
 
+# Room
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+room-paging = { module = "androidx.room:room-paging", version.ref = "room" }
+
+# Timber
+timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -76,6 +83,12 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 
 [bundles]
+lifecycle = [
+    "androidx-lifecycle-viewmodel-compose",
+    "androidx-lifecycle-runtime-compose",
+    "androidx-lifecycle-runtime-ktx",
+    "androidx-lifecycle-viewmodel-ktx"
+]
 ktor = [
     "ktor-client-core",
     "ktor-client-okhttp",
@@ -86,7 +99,22 @@ ktor = [
     "ktor-client-auth",
     "ktor-client-cio",
     "ktor-client-android",
-    "slf4j-simple"]
+    "slf4j-simple"
+]
+hilt = [
+    "hilt-android",
+    "androidx-hilt-navigation-compose"
+]
+hilt-ksp = [
+    "androidx-hilt-compiler",
+    "hilt-android-compiler",
+    "hilt-compiler"
+]
+room = [
+    "room-runtime",
+    "room-ktx",
+    "room-paging"
+]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

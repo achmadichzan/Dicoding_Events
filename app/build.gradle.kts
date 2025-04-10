@@ -68,17 +68,11 @@ dependencies {
     implementation(libs.coil3.ktor)
 
     // Lifecycle
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.bundles.lifecycle)
 
     // Hilt (dagger/hilt)
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
-    ksp(libs.hilt.android.compiler)
-    implementation(libs.androidx.hilt.navigation.compose)
-    ksp(libs.androidx.hilt.compiler)
+    implementation(libs.bundles.hilt)
+    ksp(libs.bundles.hilt.ksp)
 
     // Ktor
     implementation(libs.bundles.ktor)
@@ -86,6 +80,10 @@ dependencies {
     // Navigation
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.navigation.compose)
+
+    // Room
+    implementation(libs.bundles.room)
+    ksp(libs.room.compiler)
 
     // Timber
     implementation(libs.timber)

@@ -1,12 +1,17 @@
 package com.achmadichzan.dicodingevents.data.di
 
+import android.content.Context
+import androidx.room.Room
 import com.achmadichzan.dicodingevents.BuildConfig
 import com.achmadichzan.dicodingevents.data.network.EventApiService
 import com.achmadichzan.dicodingevents.data.repository.EventRepositoryImpl
+import com.achmadichzan.dicodingevents.data.local.EventDao
+import com.achmadichzan.dicodingevents.data.local.EventDatabase
 import com.achmadichzan.dicodingevents.domain.repository.EventRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
@@ -50,7 +55,27 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideEventRepository(apiService: EventApiService): EventRepository {
-        return EventRepositoryImpl(apiService)
+    fun provideEventRepository(
+        apiService: EventApiService,
+        eventDao: EventDao
+    ): EventRepository {
+        return EventRepositoryImpl(apiService, eventDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAppDatabase(@ApplicationContext appContext: Context): EventDatabase {
+        return Room.databaseBuilder(
+            appContext,
+            EventDatabase::class.java,
+            "event_database"
+        )
+        .fallbackToDestructiveMigration()
+        .build()
+    }
+
+    @Provides
+    fun provideEventDao(appDatabase: EventDatabase): EventDao {
+        return appDatabase.eventDao()
     }
 }

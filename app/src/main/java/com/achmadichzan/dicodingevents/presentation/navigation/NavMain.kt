@@ -5,17 +5,14 @@ import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.achmadichzan.dicodingevents.presentation.screen.EventViewModel
 import com.achmadichzan.dicodingevents.presentation.screen.event_detail.StateDetailScreen
-import com.achmadichzan.dicodingevents.presentation.screen.event_list.StateListScreen
+import com.achmadichzan.dicodingevents.presentation.screen.event_list.StateList
 
 @Composable
 fun NavMain() {
@@ -29,7 +26,7 @@ fun NavMain() {
         exitTransition = { ExitTransition.None },
     ) {
         composable<Route.EventList> {
-            StateListScreen(viewModel, navController)
+            StateList(viewModel, navController)
         }
 
         composable<Route.EventDetail>(
@@ -48,7 +45,13 @@ fun NavMain() {
         ) {
             val eventId = it.arguments?.getInt("eventId")
 
-            StateDetailScreen(viewModel, eventId)
+            StateDetailScreen(
+                viewModel = viewModel,
+                eventId = eventId,
+                onBackClick = {
+                    navController.safeNavigate()
+                }
+            )
         }
     }
 }

@@ -53,5 +53,6 @@ fun EventDescription(
         fontWeight = FontWeight.Bold,
         style = MaterialTheme.typography.bodyMedium,
         modifier = Modifier.padding(bottom = 10.dp)
+            .clickable { isExpanded = !isExpanded }
     )
 }
