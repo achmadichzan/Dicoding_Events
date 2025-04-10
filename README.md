@@ -56,7 +56,7 @@ This app interacts with the **Dicoding Events API**:
 
 ## 🛠️ Future Enhancements
 - [ ] **Loading UI** for smooth loading  
-- [ ] **Offline support** with Room database  
+- [ ] **Favorite Event support** with Room database  
 - [ ] **Dark Mode support** with Preferences 
 
 ## 🤝 Contributing
