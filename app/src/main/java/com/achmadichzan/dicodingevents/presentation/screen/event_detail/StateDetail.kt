@@ -11,13 +11,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.achmadichzan.dicodingevents.presentation.screen.EventViewModel
 import com.achmadichzan.dicodingevents.presentation.util.EventIntent
 import com.achmadichzan.dicodingevents.presentation.util.EventState
 
 @Composable
-fun StateDetailScreen(
+fun StateDetail(
     viewModel: EventViewModel,
     eventId: Int?,
     onBackClick: () -> Unit

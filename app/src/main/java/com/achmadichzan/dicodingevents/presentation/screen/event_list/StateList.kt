@@ -53,16 +53,9 @@ fun StateList(
                     CircularProgressIndicator()
                 }
             }
-            is EventState.SuccessUpcoming -> {
-                UpcomingEvents(
-                    events = (upcomingEvents as EventState.SuccessUpcoming).events,
-                    onEventClick = { eventId ->
-                        navController.navigate(EventDetail(eventId))
-                    }
-                )
-            }
             is EventState.Success -> {
                 EventListScreen(
+                    upcoming = (upcomingEvents as EventState.SuccessUpcoming).events,
                     events = (state as EventState.Success).events,
                     onEventClick = { eventId ->
                         navController.navigate(EventDetail(eventId))

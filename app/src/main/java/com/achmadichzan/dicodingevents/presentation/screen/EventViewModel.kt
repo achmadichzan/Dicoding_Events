@@ -1,5 +1,6 @@
 package com.achmadichzan.dicodingevents.presentation.screen
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.achmadichzan.dicodingevents.data.local.mapper.toDomain
@@ -46,6 +47,7 @@ class EventViewModel @Inject constructor(
                 is DataResult.Success -> {
                     val list = result.data.listEvents ?: emptyList()
                     _upcomingEvents.update { EventState.SuccessUpcoming(list) }
+                    Log.i("kentang", "fetchUpcomingEvents: list events ${list.size}")
                 }
                 is DataResult.Error -> {
                     _upcomingEvents.update { EventState.Error(

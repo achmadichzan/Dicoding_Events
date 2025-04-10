@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.achmadichzan.dicodingevents.domain.model.Event
 
 @Composable
-fun AllEvents(events: List<Event>, onEventClick: (Int) -> Unit) {
+fun AllEvents(upcoming: List<Event>, events: List<Event>, onEventClick: (Int) -> Unit) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.Start,
@@ -29,7 +29,7 @@ fun AllEvents(events: List<Event>, onEventClick: (Int) -> Unit) {
         }
 
         item {
-            UpcomingEvents(events = events, onEventClick = onEventClick)
+            UpcomingEvents(events = upcoming, onEventClick = onEventClick)
         }
 
         item {

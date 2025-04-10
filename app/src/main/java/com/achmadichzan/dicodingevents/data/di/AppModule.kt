@@ -3,10 +3,10 @@ package com.achmadichzan.dicodingevents.data.di
 import android.content.Context
 import androidx.room.Room
 import com.achmadichzan.dicodingevents.BuildConfig
-import com.achmadichzan.dicodingevents.data.network.EventApiService
-import com.achmadichzan.dicodingevents.data.repository.EventRepositoryImpl
 import com.achmadichzan.dicodingevents.data.local.EventDao
 import com.achmadichzan.dicodingevents.data.local.EventDatabase
+import com.achmadichzan.dicodingevents.data.network.EventApiService
+import com.achmadichzan.dicodingevents.data.repository.EventRepositoryImpl
 import com.achmadichzan.dicodingevents.domain.repository.EventRepository
 import dagger.Module
 import dagger.Provides
@@ -17,12 +17,15 @@ import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.header
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import timber.log.Timber
 import javax.inject.Singleton
 
 @Module
@@ -37,7 +40,14 @@ object AppModule {
                 header(HttpHeaders.ContentType, ContentType.Application.Json)
             }
 
-            install(Logging)
+            install(Logging) {
+                logger = object : Logger {
+                    override fun log(message: String) {
+                        Timber.tag("KtorLogger").d(message)
+                    }
+                }
+                level = LogLevel.ALL
+            }
             install(ContentNegotiation) {
                 json(Json {
                     ignoreUnknownKeys = true

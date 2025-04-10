@@ -6,12 +6,11 @@ import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.achmadichzan.dicodingevents.presentation.screen.EventViewModel
-import com.achmadichzan.dicodingevents.presentation.screen.event_detail.StateDetailScreen
+import com.achmadichzan.dicodingevents.presentation.screen.event_detail.StateDetail
 import com.achmadichzan.dicodingevents.presentation.screen.event_list.StateList
 
 @Composable
@@ -45,7 +44,7 @@ fun NavMain() {
         ) {
             val eventId = it.arguments?.getInt("eventId")
 
-            StateDetailScreen(
+            StateDetail(
                 viewModel = viewModel,
                 eventId = eventId,
                 onBackClick = {
