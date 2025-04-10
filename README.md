@@ -36,9 +36,12 @@ A modern **Kotlin** app for browsing and searching events using **MVI architectu
     <th>Search Feature</th>
   </tr>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/d7b2725d-7a9a-4d60-9293-dfb3440d351d" width="320"/></td>
-    <td><img src="https://github.com/user-attachments/assets/07b1d7b4-3227-4a6a-a7f0-19b0a83d4e21" width="320"/></td>
-    <td><img src="https://github.com/user-attachments/assets/7102c276-7c30-4480-9c45-7537d0478ffc" width="320"/></td>
+    <td><img src="![Upcoming and All Events](https://github.com/user-attachments/assets/2f5185f0-9142-4940-aa56-2cf7f44b6098)
+" width="320"/></td>
+    <td><img src="![Detail Event](https://github.com/user-attachments/assets/65708ae1-f617-417f-b3b2-5921c42f1408)
+" width="320"/></td>
+    <td><img src="![Search Feature](https://github.com/user-attachments/assets/51e52242-156c-4ba8-b11e-08cdc0bdf516)
+" width="320"/></td>
   </tr>
 </table>
 
