@@ -5,7 +5,7 @@ A modern **Kotlin** app for browsing and searching events using **MVI architectu
 ✅ Browse events  
 ✅ Search events with **debounce** support  
 ✅ View detailed event information  
-✅ Smooth **navigation animations**
+✅ Smooth **navigation animations**  
 ✅ Offline caching with **Room**  
 ✅ Uses **MVI (Model-View-Intent) architecture**  
 ✅ Built with **Jetpack Compose & Kotlin Coroutines**  
