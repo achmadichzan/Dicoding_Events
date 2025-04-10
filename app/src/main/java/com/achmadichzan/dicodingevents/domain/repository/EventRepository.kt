@@ -18,4 +18,8 @@ interface EventRepository {
     fun getAllEventsFlow(): Flow<List<EventEntity>>
     suspend fun insertEvents(events: List<EventEntity>)
     fun getEventById(id: Int): Flow<EventEntity?>
+
+    // 🔹 Local - DataStore
+    fun getThemeSetting(): Flow<Boolean>
+    suspend fun saveThemeSetting(isDarkModeActive: Boolean)
 }

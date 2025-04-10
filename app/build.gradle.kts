@@ -85,6 +85,9 @@ dependencies {
     implementation(libs.bundles.room)
     ksp(libs.room.compiler)
 
+    // Data Store
+    implementation(libs.androidx.datastore.preferences)
+
     // Timber
     implementation(libs.timber)
 

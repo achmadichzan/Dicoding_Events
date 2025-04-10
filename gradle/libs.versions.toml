@@ -19,6 +19,7 @@ room = "2.6.1"
 uiTextGoogleFonts = "1.7.8"
 slf4jSimple = "2.0.17"
 navigationCompose = "2.8.9"
+datastorePreferences = "1.1.4"
 timber = "5.0.1"
 
 [libraries]
@@ -64,6 +65,9 @@ room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 room-paging = { module = "androidx.room:room-paging", version.ref = "room" }
+
+# Preferences
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 
 # Timber
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }

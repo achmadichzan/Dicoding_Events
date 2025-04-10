@@ -1,11 +1,15 @@
 package com.achmadichzan.dicodingevents.data.di
 
 import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import androidx.room.Room
 import com.achmadichzan.dicodingevents.BuildConfig
 import com.achmadichzan.dicodingevents.data.local.EventDao
 import com.achmadichzan.dicodingevents.data.local.EventDatabase
 import com.achmadichzan.dicodingevents.data.network.EventApiService
+import com.achmadichzan.dicodingevents.data.preferences.DarkThemePreferences
+import com.achmadichzan.dicodingevents.data.preferences.dataStore
 import com.achmadichzan.dicodingevents.data.repository.EventRepositoryImpl
 import com.achmadichzan.dicodingevents.domain.repository.EventRepository
 import dagger.Module
@@ -67,9 +71,10 @@ object AppModule {
     @Singleton
     fun provideEventRepository(
         apiService: EventApiService,
-        eventDao: EventDao
+        eventDao: EventDao,
+        preferences: DarkThemePreferences
     ): EventRepository {
-        return EventRepositoryImpl(apiService, eventDao)
+        return EventRepositoryImpl(apiService, eventDao, preferences)
     }
 
     @Provides
@@ -87,5 +92,17 @@ object AppModule {
     @Provides
     fun provideEventDao(appDatabase: EventDatabase): EventDao {
         return appDatabase.eventDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideDataStore(@ApplicationContext context: Context): DataStore<Preferences> {
+        return context.dataStore
+    }
+
+    @Provides
+    @Singleton
+    fun provideSettingPreferences(dataStore: DataStore<Preferences>): DarkThemePreferences {
+        return DarkThemePreferences.getInstance(dataStore)
     }
 }
