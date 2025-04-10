@@ -56,7 +56,6 @@ class EventViewModel @Inject constructor(
         }
     }
 
-
     private fun fetchAllEvents() {
         viewModelScope.launch {
             repository.getAllEventsFlow().collect { eventEntities ->
@@ -68,7 +67,8 @@ class EventViewModel @Inject constructor(
         viewModelScope.launch {
             when (val result = repository.getAllEvents()) {
                 is DataResult.Success -> {
-                    TODO()
+                    val list = result.data.listEvents ?: emptyList()
+                    _state.update { EventState.Success(list) }
                 }
                 is DataResult.Error -> {
                     _state.update { EventState.Error(

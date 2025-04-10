@@ -37,7 +37,7 @@ fun RowEventItem(event: Event, onEventClick: (Int) -> Unit) {
     ) {
         Column(
             modifier = Modifier
-                .height(175.dp)
+                .height(170.dp)
                 .width(100.dp)
                 .clip(RoundedCornerShape(10.dp)),
             verticalArrangement = Arrangement.spacedBy(4.dp)
@@ -60,7 +60,7 @@ fun RowEventItem(event: Event, onEventClick: (Int) -> Unit) {
                 style = MaterialTheme.typography.titleSmall,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(start = 8.dp, end = 8.dp, bottom = 8.dp)
             )
         }
     }
