@@ -1,17 +1,19 @@
-# 🎟️ Dicoding Events App  
+# 🎟️ Dicoding Events App
 A modern **Kotlin** app for browsing and searching events using **MVI architecture** and **Ktor Client** for networking.  
 
-## ✨ Features  
+## ✨ Features
 ✅ Browse events  
 ✅ Search events with **debounce** support  
 ✅ View detailed event information  
-✅ Smooth **navigation animations**  
+✅ Smooth **navigation animations**
+✅ Offline caching with **Room**  
 ✅ Uses **MVI (Model-View-Intent) architecture**  
 ✅ Built with **Jetpack Compose & Kotlin Coroutines**  
 
-## 📌 Tech Stack  
+## 📌 Tech Stack
 - **Jetpack Compose** – Modern UI toolkit for declarative UI  
-- **Ktor Client** – Lightweight networking library  
+- **Ktor Client** – Lightweight networking library
+- **Room** – Local database for offline support  
 - **Hilt (Dagger-Hilt)** – Dependency injection  
 - **StateFlow & MVI** – Unidirectional data flow  
 - **Type-Safe Navigation** – Manages app navigation  
@@ -28,7 +30,7 @@ A modern **Kotlin** app for browsing and searching events using **MVI architectu
 4. Connect an **Android Device**  
 5. Run the app! 🎉  
 
-## 📸 Screenshots  
+## 📸 Screenshots
 <table>
   <tr>
     <th>Event List</th>
@@ -42,22 +44,22 @@ A modern **Kotlin** app for browsing and searching events using **MVI architectu
   </tr>
 </table>
 
-## 📜 Architecture  
+## 📜 Architecture
 This app follows the **MVI (Model-View-Intent) architecture**, ensuring a predictable state-driven UI:  
 - **View (Composable UI)** → Sends user **Intents**  
 - **ViewModel** → Processes intents & updates **StateFlow**  
 - **Repository** → Fetches data using **Ktor Client**  
 
-## 📬 API Reference  
+## 📬 API Reference
 This app interacts with the **Dicoding Events API**:  
 - **Base URL** `GET https://event-api.dicoding.dev/`
 
-## 🛠️ Future Enhancements  
+## 🛠️ Future Enhancements
 - [ ] **Loading UI** for smooth loading  
 - [ ] **Offline support** with Room database  
 - [ ] **Dark Mode support** with Preferences 
 
-## 🤝 Contributing  
+## 🤝 Contributing
 Contributions are welcome! Fork the repo, create a feature branch, and submit a **Pull Request**.
 
 # Big Thanks to Dicoding Academy 🎉
