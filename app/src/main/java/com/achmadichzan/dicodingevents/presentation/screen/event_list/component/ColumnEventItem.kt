@@ -19,6 +19,9 @@ import coil3.compose.SubcomposeAsyncImage
 import com.achmadichzan.dicodingevents.R
 import com.achmadichzan.dicodingevents.domain.model.Event
 import com.achmadichzan.dicodingevents.presentation.ui.component.ShimmerEffect
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 @Composable
 fun ColumnEventItem(event: Event, onEventClick: (Int) -> Unit) {
@@ -54,8 +57,26 @@ fun ColumnEventItem(event: Event, onEventClick: (Int) -> Unit) {
             )
         },
         supportingContent = {
+            val inputDateFormatter = DateTimeFormatter
+                .ofPattern("yyyy-MM-dd HH:mm:ss")
+            val outputDateFormatter = DateTimeFormatter
+                .ofPattern("EEEE, dd MMM yy HH:mm", Locale("in", "ID"))
+            val UNKNOWN_DATE_STRING = "Unknown Date"
+
+            val formattedDate = event.beginTime
+                ?.takeIf { it.isNotBlank() }
+                ?.runCatching { LocalDateTime.parse(this, inputDateFormatter) }
+                ?.mapCatching { parsedDateTime ->
+                    parsedDateTime.format(outputDateFormatter)
+                }
+                ?.getOrElse { exception ->
+                    exception.printStackTrace()
+                    UNKNOWN_DATE_STRING
+                }
+                ?: UNKNOWN_DATE_STRING
+
             Text(
-                text = event.cityName ?: "Unknown City",
+                text = formattedDate,
                 style = MaterialTheme.typography.bodyMedium
             )
         },

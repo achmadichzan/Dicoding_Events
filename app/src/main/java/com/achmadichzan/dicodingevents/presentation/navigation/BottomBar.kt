@@ -5,32 +5,20 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.serialization.generateHashCode
-import kotlinx.serialization.InternalSerializationApi
-import kotlinx.serialization.serializer
 
-@OptIn(InternalSerializationApi::class)
 @Composable
 fun BottomBar(navController: NavController) {
-    var selectedItemIndex by rememberSaveable { mutableIntStateOf(0) }
-
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
-    val showBottomBar = when (currentRoute) {
-        Route.EventList::class.qualifiedName,
-        Route.Settings::class.qualifiedName -> true
-        else -> false
-    }
+    val showBottomBar = navItem.any { it.route == currentRoute }
 
     AnimatedVisibility(
         visible = showBottomBar,
@@ -42,30 +30,38 @@ fun BottomBar(navController: NavController) {
         ) { fullHeight -> fullHeight }
     ) {
         BottomAppBar {
-            navItem.forEachIndexed { index, item ->
+            navItem.forEach { item ->
+                val isSelected = currentRoute == item.route
+
                 NavigationBarItem(
-                    selected = selectedItemIndex == index,
+                    selected = isSelected,
                     onClick = {
-                        selectedItemIndex = index
-                        when(item.route) {
-                            is Route.EventList -> {
-                                navController.navigate(Route.EventList)
-                            }
-                            is Route.Settings -> {
-                                navController.navigate(Route.Settings)
+                        if (currentRoute != item.route) {
+                            navController.navigate(item.route) {
+                                navController.graph.startDestinationRoute?.let { route ->
+                                    popUpTo(route) {
+                                        saveState = true
+                                    }
+                                }
+                                launchSingleTop = true
+                                restoreState = true
                             }
                         }
                     },
                     label = { Text(item.title) },
+                    alwaysShowLabel = true,
                     icon = {
-                        if (selectedItemIndex == index) {
-                            item.selectedIcon
-                        } else {
-                            item.unselectedIcon
-                        }
+                        Icon(
+                            imageVector = if (isSelected) {
+                                item.selectedIcon
+                            } else {
+                                item.unselectedIcon
+                            },
+                            contentDescription = item.title
+                        )
                     }
                 )
             }
         }
-}
+    }
 }

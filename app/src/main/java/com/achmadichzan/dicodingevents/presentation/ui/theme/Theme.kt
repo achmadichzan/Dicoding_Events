@@ -1,6 +1,5 @@
 package com.achmadichzan.dicodingevents.presentation.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.isSystemInDarkTheme

@@ -11,19 +11,25 @@ data class BottomNavigationItem(
     val title: String,
     val selectedIcon: ImageVector,
     val unselectedIcon: ImageVector,
-    val route: Any
+    val route: String
 )
+
 val navItem = listOf(
     BottomNavigationItem(
-        title = "Home",
+        title = "Events",
         selectedIcon = Icons.Filled.Home,
         unselectedIcon = Icons.Outlined.Home,
-        route = Route.EventList
+        route = RouteConstants.EVENT_LIST
     ),
     BottomNavigationItem(
         title = "Settings",
         selectedIcon = Icons.Filled.Settings,
         unselectedIcon = Icons.Outlined.Settings,
-        route = Route.Settings
+        route = RouteConstants.SETTINGS
     ),
 )
+
+object RouteConstants {
+    val EVENT_LIST = Route.EventList::class.qualifiedName.toString()
+    val SETTINGS = Route.Settings::class.qualifiedName.toString()
+}
