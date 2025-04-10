@@ -8,13 +8,13 @@ import androidx.compose.ui.Modifier
 import com.achmadichzan.dicodingevents.domain.model.Event
 
 @Composable
-fun UpcomingEvents(events: List<Event>, onEventClick: (Int) -> Unit) {
+fun UpcomingEvents(events: List<Event?>, onEventClick: (Int) -> Unit) {
     LazyRow(
         modifier = Modifier.fillMaxWidth(),
     ) {
         items(
             items = events,
-            key = { it.id }
+            key = { it?.id ?: 0 }
         ) { event ->
             RowEventItem(event = event, onEventClick = onEventClick)
         }

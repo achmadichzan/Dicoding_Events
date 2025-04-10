@@ -25,7 +25,7 @@ import com.achmadichzan.dicodingevents.R
 import com.achmadichzan.dicodingevents.domain.model.Event
 
 @Composable
-fun RowEventItem(event: Event, onEventClick: (Int) -> Unit) {
+fun RowEventItem(event: Event?, onEventClick: (Int) -> Unit) {
     Box(
         modifier = Modifier
             .padding(start = 16.dp)
@@ -33,7 +33,7 @@ fun RowEventItem(event: Event, onEventClick: (Int) -> Unit) {
                 color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
                 shape = RoundedCornerShape(10.dp)
             )
-            .clickable { onEventClick(event.id) }
+            .clickable { onEventClick(event?.id ?: 0) }
     ) {
         Column(
             modifier = Modifier
@@ -46,8 +46,8 @@ fun RowEventItem(event: Event, onEventClick: (Int) -> Unit) {
                 modifier = Modifier.size(115.dp),
             ) {
                 AsyncImage(
-                    model = event.imageLogo,
-                    contentDescription = event.name,
+                    model = event?.imageLogo,
+                    contentDescription = event?.name,
                     error = painterResource(R.drawable.moai),
                     modifier = Modifier
                         .size(115.dp),
@@ -56,7 +56,7 @@ fun RowEventItem(event: Event, onEventClick: (Int) -> Unit) {
             }
 
             Text(
-                text = event.name ?: "Unknown Event",
+                text = event?.name ?: "Unknown Event",
                 style = MaterialTheme.typography.titleSmall,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,

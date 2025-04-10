@@ -13,7 +13,7 @@ import com.achmadichzan.dicodingevents.presentation.screen.event_list.component.
 
 @Composable
 fun EventListScreen(
-    upcoming: List<Event>,
+    upcoming: List<Event?>,
     events: List<Event>,
     onEventClick: (Int) -> Unit,
     value: String,

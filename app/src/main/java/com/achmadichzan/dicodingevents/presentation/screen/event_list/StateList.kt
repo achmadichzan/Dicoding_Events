@@ -17,7 +17,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.achmadichzan.dicodingevents.presentation.navigation.Route.EventDetail
 import com.achmadichzan.dicodingevents.presentation.screen.EventViewModel
-import com.achmadichzan.dicodingevents.presentation.screen.event_list.component.UpcomingEvents
 import com.achmadichzan.dicodingevents.presentation.util.EventIntent
 import com.achmadichzan.dicodingevents.presentation.util.EventState
 
@@ -27,25 +26,27 @@ fun StateList(
     navController: NavController,
 ) {
     Surface {
-        val state by viewModel.state.collectAsStateWithLifecycle()
-        val upcomingEvents by viewModel.upcomingEvents.collectAsStateWithLifecycle()
+        val allEventsState by viewModel.state.collectAsStateWithLifecycle()
+        val upcomingEventsState by viewModel.upcomingEvents.collectAsStateWithLifecycle()
 
         var searchQuery by remember { mutableStateOf("") }
 
-        LaunchedEffect(searchQuery) {
-            if (searchQuery.isNotEmpty()) {
-                viewModel.handleIntent(EventIntent.SearchEvents(searchQuery))
-            } else {
-                viewModel.handleIntent(EventIntent.LoadAllEvents)
-            }
-        }
-
         LaunchedEffect(Unit) {
             viewModel.handleIntent(EventIntent.LoadUpcomingEvents)
+            viewModel.handleIntent(EventIntent.LoadAllEvents)
+        }
+        LaunchedEffect(searchQuery) {
+            viewModel.handleIntent(EventIntent.SearchEvents(searchQuery))
         }
 
-        when (state) {
-            is EventState.Loading -> {
+        val isLoading = allEventsState is EventState.Loading || upcomingEventsState is EventState.Loading
+        val errorMessages = listOfNotNull(
+            (allEventsState as? EventState.Error)?.message,
+            (upcomingEventsState as? EventState.Error)?.message
+        )
+
+        when {
+            isLoading -> {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
@@ -53,10 +54,21 @@ fun StateList(
                     CircularProgressIndicator()
                 }
             }
-            is EventState.Success -> {
+            errorMessages.isNotEmpty() -> {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(text = "Error: ${errorMessages.joinToString()}")
+                }
+            }
+            allEventsState is EventState.Success && upcomingEventsState is EventState.SuccessUpcoming -> {
+                val allEventsList = (allEventsState as EventState.Success).events
+                val upcomingEventsList = (upcomingEventsState as EventState.SuccessUpcoming).events
+
                 EventListScreen(
-                    upcoming = (upcomingEvents as EventState.SuccessUpcoming).events,
-                    events = (state as EventState.Success).events,
+                    upcoming = upcomingEventsList,
+                    events = allEventsList,
                     onEventClick = { eventId ->
                         navController.navigate(EventDetail(eventId))
                     },
@@ -66,15 +78,14 @@ fun StateList(
                     }
                 )
             }
-            is EventState.Error -> {
+            else -> {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(text = "Error: ${(state as EventState.Error).message}")
+                    Text("Waiting for data...")
                 }
             }
-            else -> Unit
         }
     }
 }
