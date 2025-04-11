@@ -11,6 +11,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
@@ -21,20 +23,32 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
 import com.achmadichzan.dicodingevents.domain.model.Event
+import com.achmadichzan.dicodingevents.presentation.screen.EventViewModel
 import com.achmadichzan.dicodingevents.presentation.screen.event_detail.component.EventDescription
 import com.achmadichzan.dicodingevents.presentation.screen.event_detail.component.EventHeader
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EventDetailScreen(event: Event?, onBackClick: () -> Unit) {
+fun EventDetailScreen(
+    viewModel: EventViewModel,
+    event: Event?,
+    onBackClick: () -> Unit
+) {
     val context = LocalContext.current
+    val isFavorite by viewModel.isFavorite.collectAsState()
+
+    LaunchedEffect(event?.id) {
+        event?.let { event -> viewModel.checkIfFavorite(event.id) }
+    }
 
     Scaffold(
         topBar = {
@@ -56,6 +70,22 @@ fun EventDetailScreen(event: Event?, onBackClick: () -> Unit) {
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                     )
+                },
+                actions = {
+                    IconButton(
+                        onClick = { event?.let { event -> viewModel.toggleFavorite(event) } }
+                    ) {
+                        Icon(
+                            imageVector =
+                                if (isFavorite) Icons.Filled.Favorite
+                                else Icons.Outlined.FavoriteBorder,
+                            contentDescription =
+                                if (isFavorite) "Remove from Favorites"
+                                else "Add to Favorites",
+                            tint = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.size(60.dp)
+                        )
+                    }
                 }
             )
         },

@@ -3,6 +3,8 @@ package com.achmadichzan.dicodingevents.presentation.screen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.achmadichzan.dicodingevents.data.local.mapper.toDomain
+import com.achmadichzan.dicodingevents.data.local.mapper.toFavoriteEntity
+import com.achmadichzan.dicodingevents.domain.model.Event
 import com.achmadichzan.dicodingevents.domain.repository.EventRepository
 import com.achmadichzan.dicodingevents.presentation.util.DataResult
 import com.achmadichzan.dicodingevents.presentation.util.EventIntent
@@ -30,6 +32,9 @@ class EventViewModel @Inject constructor(
     val upcomingEvents: StateFlow<EventState> = _upcomingEvents
 
     private val _searchQuery = MutableStateFlow("")
+
+    private val _isFavorite = MutableStateFlow(false)
+    val isFavorite: StateFlow<Boolean> = _isFavorite
 
     fun handleIntent(intent: EventIntent) {
         when (intent) {
@@ -67,8 +72,8 @@ class EventViewModel @Inject constructor(
         viewModelScope.launch {
             when (val result = repository.getAllEvents()) {
                 is DataResult.Success -> {
-//                    val list = result.data.listEvents ?: emptyList()
-//                    _state.update { EventState.Success(list) }
+                    val list = result.data.listEvents ?: emptyList()
+                    _state.update { EventState.Success(list) }
                 }
                 is DataResult.Error -> {
                     _state.update { EventState.Error(
@@ -128,6 +133,26 @@ class EventViewModel @Inject constructor(
                     result.exception.localizedMessage ?: "Unknown error"
                 ) }
             }
+        }
+    }
+
+    fun checkIfFavorite(eventId: Int) {
+        viewModelScope.launch {
+            repository.isFavorite(eventId).collectLatest { isFav ->
+                _isFavorite.update { isFav }
+            }
+        }
+    }
+
+    fun toggleFavorite(event: Event) {
+        viewModelScope.launch {
+            val entity = event.toFavoriteEntity()
+            if (_isFavorite.value) {
+                repository.removeFromFavorite(entity)
+            } else {
+                repository.addToFavorite(entity)
+            }
+            checkIfFavorite(event.id)
         }
     }
 }

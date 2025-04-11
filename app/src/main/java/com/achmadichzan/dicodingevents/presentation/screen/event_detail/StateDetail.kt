@@ -40,7 +40,11 @@ fun StateDetail(
                 }
             }
             is EventState.SuccessDetail -> {
-                EventDetailScreen(event = (state as EventState.SuccessDetail).event, onBackClick = onBackClick)
+                EventDetailScreen(
+                    viewModel = viewModel,
+                    event = (state as EventState.SuccessDetail).event,
+                    onBackClick = onBackClick
+                )
             }
             is EventState.Error -> {
                 Box(

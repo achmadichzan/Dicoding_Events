@@ -1,8 +1,10 @@
 package com.achmadichzan.dicodingevents.presentation.navigation
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -27,9 +29,16 @@ val navItem = listOf(
         unselectedIcon = Icons.Outlined.Settings,
         route = RouteConstants.SETTINGS
     ),
+    BottomNavigationItem(
+        title = "Settings",
+        selectedIcon = Icons.Filled.Favorite,
+        unselectedIcon = Icons.Outlined.FavoriteBorder,
+        route = RouteConstants.FAVORITE
+    ),
 )
 
 object RouteConstants {
     val EVENT_LIST = Route.EventList::class.qualifiedName.toString()
     val SETTINGS = Route.Settings::class.qualifiedName.toString()
+    val FAVORITE = Route.Favorite::class.qualifiedName.toString()
 }

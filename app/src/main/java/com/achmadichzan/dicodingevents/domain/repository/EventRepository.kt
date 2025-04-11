@@ -1,6 +1,7 @@
 package com.achmadichzan.dicodingevents.domain.repository
 
-import com.achmadichzan.dicodingevents.data.local.EventEntity
+import com.achmadichzan.dicodingevents.data.local.entity.EventEntity
+import com.achmadichzan.dicodingevents.data.local.entity.FavoriteEventEntity
 import com.achmadichzan.dicodingevents.domain.model.Event
 import com.achmadichzan.dicodingevents.domain.model.EventResponse
 import com.achmadichzan.dicodingevents.presentation.util.DataResult
@@ -16,8 +17,13 @@ interface EventRepository {
 
     // 🔹 Local - Room
     fun getAllEventsFlow(): Flow<List<EventEntity>>
-    suspend fun insertEvents(events: List<EventEntity>)
     fun getEventById(id: Int): Flow<EventEntity?>
+
+    // 🔹 Local - Room
+    suspend fun addToFavorite(event: FavoriteEventEntity)
+    fun getAllFavorites(): Flow<List<FavoriteEventEntity>?>
+    fun isFavorite(eventId: Int): Flow<Boolean>
+    suspend fun removeFromFavorite(event: FavoriteEventEntity)
 
     // 🔹 Local - DataStore
     fun getThemeSetting(): Flow<Boolean>

@@ -1,6 +1,6 @@
 package com.achmadichzan.dicodingevents.data.local.mapper
 
-import com.achmadichzan.dicodingevents.data.local.EventEntity
+import com.achmadichzan.dicodingevents.data.local.entity.EventEntity
 import com.achmadichzan.dicodingevents.domain.model.Event
 
 fun EventEntity.toDomain(): Event {

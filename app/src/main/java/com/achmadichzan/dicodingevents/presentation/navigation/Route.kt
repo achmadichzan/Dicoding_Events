@@ -15,6 +15,9 @@ object Route {
 
     @Serializable
     object Settings
+
+    @Serializable
+    object Favorite
 }
 
 val NavHostController.canGoBack: Boolean

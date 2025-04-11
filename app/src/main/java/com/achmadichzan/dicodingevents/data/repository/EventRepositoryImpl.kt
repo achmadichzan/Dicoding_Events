@@ -1,7 +1,9 @@
 package com.achmadichzan.dicodingevents.data.repository
 
-import com.achmadichzan.dicodingevents.data.local.EventDao
-import com.achmadichzan.dicodingevents.data.local.EventEntity
+import com.achmadichzan.dicodingevents.data.local.dao.EventDao
+import com.achmadichzan.dicodingevents.data.local.dao.FavoriteEventDao
+import com.achmadichzan.dicodingevents.data.local.entity.EventEntity
+import com.achmadichzan.dicodingevents.data.local.entity.FavoriteEventEntity
 import com.achmadichzan.dicodingevents.data.local.mapper.toEntity
 import com.achmadichzan.dicodingevents.data.network.EventApiService
 import com.achmadichzan.dicodingevents.data.preferences.DarkThemePreferences
@@ -10,10 +12,12 @@ import com.achmadichzan.dicodingevents.domain.model.EventResponse
 import com.achmadichzan.dicodingevents.domain.repository.EventRepository
 import com.achmadichzan.dicodingevents.presentation.util.DataResult
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class EventRepositoryImpl(
     private val apiService: EventApiService,
     private val eventDao: EventDao,
+    private val favoriteEventDao: FavoriteEventDao,
     private val preferences: DarkThemePreferences
 ) : EventRepository {
 
@@ -66,12 +70,24 @@ class EventRepositoryImpl(
         return eventDao.getAllEvents()
     }
 
-    override suspend fun insertEvents(events: List<EventEntity>) {
-        eventDao.upsertEvents(events)
-    }
-
     override fun getEventById(id: Int): Flow<EventEntity?> {
         return eventDao.getEventById(id)
+    }
+
+    override suspend fun addToFavorite(event: FavoriteEventEntity) {
+        favoriteEventDao.upsertFavoriteEvent(event)
+    }
+
+    override fun getAllFavorites(): Flow<List<FavoriteEventEntity>?> {
+        return favoriteEventDao.getAllFavorites()
+    }
+
+    override fun isFavorite(eventId: Int): Flow<Boolean> {
+        return favoriteEventDao.getFavoriteEventById(eventId).map { it != null }
+    }
+
+    override suspend fun removeFromFavorite(event: FavoriteEventEntity) {
+        favoriteEventDao.deleteFavorite(event)
     }
 
     override fun getThemeSetting(): Flow<Boolean> = preferences.getThemeSetting()

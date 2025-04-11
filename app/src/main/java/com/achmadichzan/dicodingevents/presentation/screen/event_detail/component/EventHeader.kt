@@ -1,8 +1,11 @@
 package com.achmadichzan.dicodingevents.presentation.screen.event_detail.component
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -23,54 +26,62 @@ fun EventHeader(
     modifier: Modifier = Modifier,
     event: Event?
 ) {
-    SubcomposeAsyncImage(
-        model = event?.mediaCover,
-        contentDescription = event?.name,
-        loading = {
-            ShimmerEffect(modifier = Modifier.fillMaxWidth())
-        },
-        error = {
-            Image(
-                painter = painterResource(R.drawable.moai),
-                contentDescription = "Error loading image"
+    Box(
+        modifier = modifier.fillMaxSize()
+    ) {
+
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            SubcomposeAsyncImage(
+                model = event?.mediaCover,
+                contentDescription = event?.name,
+                loading = {
+                    ShimmerEffect(modifier = Modifier.fillMaxWidth())
+                },
+                error = {
+                    Image(
+                        painter = painterResource(R.drawable.moai),
+                        contentDescription = "Error loading image"
+                    )
+                },
+                modifier = modifier
+                    .fillMaxWidth()
+                    .height(200.dp),
+                contentScale = ContentScale.FillWidth
             )
-        },
-        modifier = modifier
-            .fillMaxWidth()
-            .height(200.dp),
-        contentScale = ContentScale.FillWidth
-    )
 
-    Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
-    Text(
-        text = event?.name ?: "Unknown Event",
-        style = MaterialTheme.typography.titleLarge
-    )
+            Text(
+                text = event?.name ?: "Unknown Event",
+                style = MaterialTheme.typography.titleLarge
+            )
 
-    Row {
-        Text(
-            text = "${event?.category} oleh\n${event?.ownerName}",
-            style = MaterialTheme.typography.bodySmall
-        )
-        Spacer(modifier = Modifier.weight(1f))
-        Text(
-            text = ("Kuota ${event?.quota} orang\n" +
-                    "Terdaftar ${event?.registrants} orang"),
-            style = MaterialTheme.typography.bodySmall,
-        )
+            Row {
+                Text(
+                    text = "${event?.category} oleh\n${event?.ownerName}",
+                    style = MaterialTheme.typography.bodySmall
+                )
+                Spacer(modifier = Modifier.weight(1f))
+                Text(
+                    text = ("Kuota ${event?.quota} orang\n" +
+                            "Terdaftar ${event?.registrants} orang"),
+                    style = MaterialTheme.typography.bodySmall,
+                )
+            }
+
+            Text(
+                text = ("Mulai pada ${event?.beginTime}" +
+                        "\nSelesai pada ${event?.endTime}"),
+                style = MaterialTheme.typography.bodySmall
+            )
+
+            Text(
+                text = "${event?.summary}",
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(top = 3.dp)
+            )
+        }
     }
-
-    Text(
-        text = ("Mulai pada ${event?.beginTime}" +
-                "\nSelesai pada ${event?.endTime}"),
-        style = MaterialTheme.typography.bodySmall
-    )
-
-    Text(
-        text = "${event?.summary}",
-        style = MaterialTheme.typography.bodyMedium,
-        modifier = Modifier.padding(top = 3.dp)
-    )
-
 }

@@ -16,7 +16,9 @@ import androidx.navigation.compose.rememberNavController
 import com.achmadichzan.dicodingevents.presentation.screen.EventViewModel
 import com.achmadichzan.dicodingevents.presentation.screen.event_detail.StateDetail
 import com.achmadichzan.dicodingevents.presentation.screen.event_list.StateList
-import com.achmadichzan.dicodingevents.presentation.screen.settings.Settings
+import com.achmadichzan.dicodingevents.presentation.screen.favorite.FavoriteScreen
+import com.achmadichzan.dicodingevents.presentation.screen.favorite.FavoriteViewModel
+import com.achmadichzan.dicodingevents.presentation.screen.settings.SettingsScreen
 
 @Composable
 fun NavMain() {
@@ -29,7 +31,8 @@ fun NavMain() {
         contentWindowInsets = WindowInsets(0, 0, 0, 0)
     ) {
 
-        val viewModel: EventViewModel = hiltViewModel()
+        val eventViewModel: EventViewModel = hiltViewModel()
+        val favoriteViewModel: FavoriteViewModel = hiltViewModel()
 
         NavHost(
             modifier = Modifier.padding(it),
@@ -39,7 +42,7 @@ fun NavMain() {
             exitTransition = { ExitTransition.None },
         ) {
             composable<Route.EventList> {
-                StateList(viewModel, navController)
+                StateList(eventViewModel, navController)
             }
 
             composable<Route.EventDetail>(
@@ -59,7 +62,7 @@ fun NavMain() {
                 val eventId = it.arguments?.getInt("eventId")
 
                 StateDetail(
-                    viewModel = viewModel,
+                    viewModel = eventViewModel,
                     eventId = eventId,
                     onBackClick = {
                         navController.navigateBack()
@@ -68,7 +71,13 @@ fun NavMain() {
             }
 
             composable<Route.Settings> {
-                Settings()
+                SettingsScreen()
+            }
+
+            composable<Route.Favorite> {
+                FavoriteScreen(
+                    viewModel = favoriteViewModel
+                )
             }
         }
     }

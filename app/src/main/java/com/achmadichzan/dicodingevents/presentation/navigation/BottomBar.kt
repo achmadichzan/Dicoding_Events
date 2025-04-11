@@ -49,7 +49,7 @@ fun BottomBar(navController: NavController) {
                         }
                     },
                     label = { Text(item.title) },
-                    alwaysShowLabel = true,
+                    alwaysShowLabel = false,
                     icon = {
                         Icon(
                             imageVector = if (isSelected) {

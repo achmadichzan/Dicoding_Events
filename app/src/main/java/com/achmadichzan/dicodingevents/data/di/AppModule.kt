@@ -5,8 +5,10 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.room.Room
 import com.achmadichzan.dicodingevents.BuildConfig
-import com.achmadichzan.dicodingevents.data.local.EventDao
-import com.achmadichzan.dicodingevents.data.local.EventDatabase
+import com.achmadichzan.dicodingevents.data.local.dao.EventDao
+import com.achmadichzan.dicodingevents.data.local.dao.FavoriteEventDao
+import com.achmadichzan.dicodingevents.data.local.database.EventDatabase
+import com.achmadichzan.dicodingevents.data.local.database.FavoriteEventDatabase
 import com.achmadichzan.dicodingevents.data.network.EventApiService
 import com.achmadichzan.dicodingevents.data.preferences.DarkThemePreferences
 import com.achmadichzan.dicodingevents.data.preferences.dataStore
@@ -72,9 +74,10 @@ object AppModule {
     fun provideEventRepository(
         apiService: EventApiService,
         eventDao: EventDao,
+        favoriteEventDao: FavoriteEventDao,
         preferences: DarkThemePreferences
     ): EventRepository {
-        return EventRepositoryImpl(apiService, eventDao, preferences)
+        return EventRepositoryImpl(apiService, eventDao, favoriteEventDao, preferences)
     }
 
     @Provides
@@ -92,6 +95,23 @@ object AppModule {
     @Provides
     fun provideEventDao(appDatabase: EventDatabase): EventDao {
         return appDatabase.eventDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideFavoriteEventDatabase(@ApplicationContext appContext: Context): FavoriteEventDatabase {
+        return Room.databaseBuilder(
+            appContext,
+            FavoriteEventDatabase::class.java,
+            "favorite_database"
+        )
+        .fallbackToDestructiveMigration()
+        .build()
+    }
+
+    @Provides
+    fun provideFavoriteEventDao(favDatabase: FavoriteEventDatabase): FavoriteEventDao {
+        return favDatabase.favoriteEventDao()
     }
 
     @Provides

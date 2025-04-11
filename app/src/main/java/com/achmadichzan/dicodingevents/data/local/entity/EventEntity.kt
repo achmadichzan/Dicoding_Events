@@ -1,4 +1,4 @@
-package com.achmadichzan.dicodingevents.data.local
+package com.achmadichzan.dicodingevents.data.local.entity
 
 import android.os.Parcelable
 import androidx.room.Entity
