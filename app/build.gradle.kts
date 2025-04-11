@@ -24,10 +24,9 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -39,12 +38,13 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            val baseUrl = Properties()
-            project.rootProject.file("local.properties").inputStream().use { baseUrl.load(it) }
+            val properties = Properties()
+            project.rootProject.file("local.properties").inputStream()
+                .use { properties.load(it) }
             buildConfigField(
                 "String",
                 "BASE_URL",
-                "\"" + baseUrl.getProperty("BASE_URL") + "\""
+                "\"${properties.getProperty("BASE_URL")}\""
             )
         }
     }
@@ -87,6 +87,9 @@ dependencies {
 
     // Data Store
     implementation(libs.androidx.datastore.preferences)
+
+    // Work Manager
+    implementation(libs.androidx.work.runtime.ktx)
 
     // Timber
     implementation(libs.timber)

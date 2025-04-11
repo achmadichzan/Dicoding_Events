@@ -28,4 +28,7 @@ interface EventRepository {
     // 🔹 Local - DataStore
     fun getThemeSetting(): Flow<Boolean>
     suspend fun saveThemeSetting(isDarkModeActive: Boolean)
+
+    // 🔹 WorkManager
+    suspend fun getReminderEvent(): EventResponse?
 }

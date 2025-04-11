@@ -27,7 +27,7 @@ class DarkThemePreferences private constructor(internal val dataStore: DataStore
             }
         }
         .map { preferences ->
-            preferences[THEME_KEY] ?: false
+            preferences[THEME_KEY] == true
         }
 
     suspend fun saveThemeSetting(isDark: Boolean) {

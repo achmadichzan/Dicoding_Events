@@ -24,4 +24,8 @@ class EventApiService(private val client: HttpClient) {
         val url = "events?active=-1&q=$keyword"
         return client.get(url).body()
     }
+
+    suspend fun getReminderEvents(): EventResponse {
+        return client.get("events?active=-1&limit=1").body()
+    }
 }

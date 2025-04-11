@@ -21,6 +21,7 @@ slf4jSimple = "2.0.17"
 navigationCompose = "2.8.9"
 datastorePreferences = "1.1.4"
 timber = "5.0.1"
+workRuntime = "2.10.0"
 
 [libraries]
 
@@ -55,6 +56,7 @@ androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-com
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+androidx-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "androidxHilt" }
 
 # Navigation
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
@@ -68,6 +70,10 @@ room-paging = { module = "androidx.room:room-paging", version.ref = "room" }
 
 # Preferences
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+
+# Work Manager
+androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntime" }
+androidx-work-runtime = { module = "androidx.work:work-runtime", version.ref = "workRuntime" }
 
 # Timber
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
@@ -107,7 +113,8 @@ ktor = [
 ]
 hilt = [
     "hilt-android",
-    "androidx-hilt-navigation-compose"
+    "androidx-hilt-navigation-compose",
+    "androidx-hilt-work"
 ]
 hilt-ksp = [
     "androidx-hilt-compiler",

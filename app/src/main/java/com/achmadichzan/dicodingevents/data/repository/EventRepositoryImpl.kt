@@ -95,4 +95,13 @@ class EventRepositoryImpl(
     override suspend fun saveThemeSetting(isDark: Boolean) {
         preferences.saveThemeSetting(isDark)
     }
+
+    override suspend fun getReminderEvent(): EventResponse? {
+        return try {
+            apiService.getReminderEvents()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
 }

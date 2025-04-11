@@ -6,40 +6,46 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 
-data class SettingsItem(
-    val title: String,
-//    val icon: ImageVector,
-    val onClick: () -> Unit
+data class SettingsItemData(
+    val id: String,
+    val headlineContent: String,
+    val supportingContent: String? = null,
+    val hasSwitch: Boolean = false
 )
 
-val settingsItems = listOf(
-    SettingsItem(
-        title = "Dark theme",
-        onClick = {}
+val settingsListData = listOf(
+    SettingsItemData(
+        id = "dark_theme",
+        headlineContent = "Tema Gelap",
+        supportingContent = "Aktifkan tema gelap",
+        hasSwitch = true
+    ),
+    SettingsItemData(
+        id = "reminder",
+        headlineContent = "Pengingat",
+        supportingContent = "Aktifkan pengingat",
+        hasSwitch = true
     )
 )
 
 @Composable
-fun ListItemSettings(item: SettingsItem) {
+fun SettingsListItem(
+    modifier: Modifier = Modifier,
+    item: SettingsItemData,
+    isChecked: Boolean,
+    onCheckedChange: ((Boolean) -> Unit)?
+) {
     ListItem(
-        modifier = Modifier.fillMaxWidth(),
-        headlineContent = {
-            Text(
-                text = item.title
-            )
-        },
-        supportingContent = {
-            Text("Enable dark theme")
-        },
-        trailingContent = {
-            Switch(
-                checked = false,
-                onCheckedChange = {
-
-                }
-            )
-        }
+        modifier = modifier.fillMaxWidth(),
+        headlineContent = { Text(text = item.headlineContent) },
+        supportingContent = item.supportingContent?.let { { Text(text = it) } },
+        trailingContent =
+        if (item.hasSwitch) { {
+                Switch(
+                    checked = isChecked,
+                    onCheckedChange = onCheckedChange
+                ) }
+        } else { null }
     )
 }
