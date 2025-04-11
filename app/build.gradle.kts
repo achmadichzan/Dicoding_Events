@@ -91,6 +91,9 @@ dependencies {
     // Work Manager
     implementation(libs.androidx.work.runtime.ktx)
 
+    // Splash Screen
+    implementation(libs.androidx.core.splashscreen)
+
     // Timber
     implementation(libs.timber)
 

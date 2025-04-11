@@ -12,7 +12,6 @@ androidxLifecycle = "2.8.7"
 ktor = "3.1.2"
 kspVersion = "2.1.0-1.0.29"
 sandwichKtor = "2.1.0"
-androidxHilt = "1.2.0"
 hilt = "2.56.1"
 hiltCompiler = "1.2.0"
 room = "2.6.1"
@@ -20,10 +19,13 @@ uiTextGoogleFonts = "1.7.8"
 slf4jSimple = "2.0.17"
 navigationCompose = "2.8.9"
 datastorePreferences = "1.1.4"
-timber = "5.0.1"
 workRuntime = "2.10.0"
+coreSplashscreen = "1.2.0-beta01"
+timber = "5.0.1"
 
 [libraries]
+# Splash Screen
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 
 # Fonts
 androidx-ui-text-google-fonts = { module = "androidx.compose.ui:ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
@@ -52,11 +54,11 @@ slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4jSimple" 
 
 # Hilt
 androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hiltCompiler" }
-androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "androidxHilt" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltCompiler" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
-androidx-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "androidxHilt" }
+androidx-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hiltCompiler" }
 
 # Navigation
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
