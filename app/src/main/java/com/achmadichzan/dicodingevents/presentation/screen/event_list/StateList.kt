@@ -15,7 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.achmadichzan.dicodingevents.presentation.navigation.Route.EventDetail
+import com.achmadichzan.dicodingevents.presentation.navigation.Route
 import com.achmadichzan.dicodingevents.presentation.screen.EventViewModel
 import com.achmadichzan.dicodingevents.presentation.util.EventIntent
 import com.achmadichzan.dicodingevents.presentation.util.EventState
@@ -70,7 +70,7 @@ fun StateList(
                         upcoming = upcomingEventsList,
                         events = allEventsList,
                         onEventClick = { eventId ->
-                            navController.navigate(EventDetail(eventId))
+                            navController.navigate(Route.EventDetail(eventId))
                         },
                         value = searchQuery,
                         onValueChange = { newValue ->

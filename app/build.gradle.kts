@@ -70,12 +70,14 @@ dependencies {
     // Lifecycle
     implementation(libs.bundles.lifecycle)
 
-    // Hilt (dagger/hilt)
-    implementation(libs.bundles.hilt)
-    ksp(libs.bundles.hilt.ksp)
+    implementation(libs.kotlinx.serialization.json)
 
     // Ktor
     implementation(libs.bundles.ktor)
+
+    // Hilt (dagger/hilt)
+    implementation(libs.bundles.hilt)
+    ksp(libs.bundles.hilt.ksp)
 
     // Navigation
     implementation(libs.androidx.navigation.ui.ktx)

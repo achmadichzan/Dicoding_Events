@@ -2,10 +2,13 @@ package com.achmadichzan.dicodingevents.data.worker
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
+import androidx.core.net.toUri
 import androidx.hilt.work.HiltWorker
 import androidx.work.Constraints
 import androidx.work.CoroutineWorker
@@ -61,7 +64,7 @@ class ReminderWorker @AssistedInject constructor(
         return Result.success()
     }
 
-    private fun showNotification(title: String, date: String, imageUrl: String) {
+    private suspend fun showNotification(title: String, date: String, imageUrl: String) {
         val context = applicationContext
         val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -92,13 +95,23 @@ class ReminderWorker @AssistedInject constructor(
             setTextViewText(R.id.expanded_message, title)
         }
 
+        val event = repository.getReminderEvent()?.listEvents?.firstOrNull()
+        val intent = Intent(Intent.ACTION_VIEW, "app://event/${event?.id}".toUri()).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        val pendingIntent = PendingIntent.getActivity(
+            context,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_event)
-            .setContentTitle(title)
-            .setContentText(date)
             .setStyle(NotificationCompat.DecoratedCustomViewStyle())
             .setCustomContentView(collapsedView)
             .setCustomBigContentView(expandedView)
+            .setContentIntent(pendingIntent)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setDefaults(NotificationCompat.DEFAULT_ALL)
             .setAutoCancel(true)

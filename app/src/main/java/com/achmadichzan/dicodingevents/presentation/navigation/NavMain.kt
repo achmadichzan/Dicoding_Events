@@ -13,6 +13,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navDeepLink
 import com.achmadichzan.dicodingevents.presentation.screen.EventViewModel
 import com.achmadichzan.dicodingevents.presentation.screen.event_detail.StateDetail
 import com.achmadichzan.dicodingevents.presentation.screen.event_list.StateList
@@ -46,6 +47,7 @@ fun NavMain() {
             }
 
             composable<Route.EventDetail>(
+                deepLinks = listOf(navDeepLink { uriPattern = "app://event/{eventId}" }),
                 enterTransition = {
                     slideIntoContainer(
                         AnimatedContentTransitionScope.SlideDirection.Left,
@@ -76,7 +78,10 @@ fun NavMain() {
 
             composable<Route.Favorite> {
                 FavoriteScreen(
-                    viewModel = favoriteViewModel
+                    viewModel = favoriteViewModel,
+                    onEventClick = { eventId ->
+                        navController.navigate(Route.EventDetail(eventId))
+                    }
                 )
             }
         }

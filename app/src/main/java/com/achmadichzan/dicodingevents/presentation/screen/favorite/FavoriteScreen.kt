@@ -17,7 +17,8 @@ import com.achmadichzan.dicodingevents.presentation.screen.event_list.component.
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FavoriteScreen(
-    viewModel: FavoriteViewModel = hiltViewModel()
+    viewModel: FavoriteViewModel = hiltViewModel(),
+    onEventClick: (Int) -> Unit
 ) {
     val favoriteEvents by viewModel.favoriteEvents.collectAsState()
 
@@ -39,7 +40,10 @@ fun FavoriteScreen(
                 items = favoriteEvents,
                 key = { it.id }
             ) { event ->
-                ColumnEventItem(event = event.toEvent(), onEventClick = {})
+                ColumnEventItem(
+                    event = event.toEvent(),
+                    onEventClick = onEventClick
+                )
             }
         }
     }
