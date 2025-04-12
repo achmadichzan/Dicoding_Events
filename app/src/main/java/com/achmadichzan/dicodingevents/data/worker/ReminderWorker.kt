@@ -1,7 +1,10 @@
 package com.achmadichzan.dicodingevents.data.worker
 
+import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.graphics.BitmapFactory
+import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.hilt.work.HiltWorker
 import androidx.work.Constraints
@@ -15,6 +18,7 @@ import com.achmadichzan.dicodingevents.R
 import com.achmadichzan.dicodingevents.domain.repository.EventRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import java.net.URL
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
@@ -48,29 +52,73 @@ class ReminderWorker @AssistedInject constructor(
             ?: UNKNOWN_DATE_STRING
 
         event?.let {
-            showNotification(it.name ?: "", formattedDate)
+            showNotification(
+                title = it.name ?: "Unknown Event",
+                date = formattedDate,
+                imageUrl = it.imageLogo ?: ""
+            )
         }
         return Result.success()
     }
 
-    private fun showNotification(title: String, date: String) {
-        val manager = applicationContext
-            .getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    private fun showNotification(title: String, date: String, imageUrl: String) {
+        val context = applicationContext
+        val notificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        val notification = NotificationCompat.Builder(applicationContext, "event_reminder_channel")
+        val imageBitmap = try {
+            val url = URL(imageUrl)
+            BitmapFactory.decodeStream(url.openConnection().getInputStream())
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+
+        val collapsedView = RemoteViews(
+            context.packageName,
+            R.layout.collapsed_notification
+        ).apply {
+            setTextViewText(R.id.collapsed_title, title)
+        }
+
+        val expandedView = RemoteViews(
+            context.packageName,
+            R.layout.expanded_notification
+        ).apply {
+            if (imageBitmap != null) {
+                setImageViewBitmap(R.id.expanded_image, imageBitmap)
+            }
+            setTextViewText(R.id.expanded_title, date)
+            setTextViewText(R.id.expanded_message, title)
+        }
+
+        val notification = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_event)
             .setContentTitle(title)
-            .setStyle(NotificationCompat.BigTextStyle()
-                .setBigContentTitle(title)
-                .bigText(date))
+            .setContentText(date)
+            .setStyle(NotificationCompat.DecoratedCustomViewStyle())
+            .setCustomContentView(collapsedView)
+            .setCustomBigContentView(expandedView)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setDefaults(NotificationCompat.DEFAULT_ALL)
             .setAutoCancel(true)
             .build()
 
-        manager.notify(1001, notification)
+        val channel = NotificationChannel(
+            CHANNEL_ID,
+            CHANNEL_NAME,
+            NotificationManager.IMPORTANCE_HIGH
+        )
+        notificationManager.createNotificationChannel(channel)
+        notificationManager.notify(1001, notification)
     }
 
+
+
     companion object {
+        const val CHANNEL_ID = "event_reminder_channel"
+        const val CHANNEL_NAME = "dicoding channel"
+
         fun schedule(context: Context) {
             val request = PeriodicWorkRequestBuilder<ReminderWorker>(1, TimeUnit.DAYS)
                 .setConstraints(

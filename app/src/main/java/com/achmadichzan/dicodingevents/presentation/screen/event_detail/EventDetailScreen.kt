@@ -82,8 +82,7 @@ fun EventDetailScreen(
                             contentDescription =
                                 if (isFavorite) "Remove from Favorites"
                                 else "Add to Favorites",
-                            tint = MaterialTheme.colorScheme.primary,
-                            modifier = Modifier.size(60.dp)
+                            tint = MaterialTheme.colorScheme.primary
                         )
                     }
                 }

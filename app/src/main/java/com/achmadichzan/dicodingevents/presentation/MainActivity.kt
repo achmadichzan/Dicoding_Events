@@ -21,14 +21,13 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
         if (Build.VERSION.SDK_INT >= 33) {
             requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
-
-        installSplashScreen()
 
         setContent {
             val settingsViewModel: SettingsViewModel = hiltViewModel()
