@@ -24,13 +24,13 @@ val navItem = listOf(
         route = RouteConstants.EVENT_LIST
     ),
     BottomNavigationItem(
-        title = "Settings",
+        title = "Pengaturan",
         selectedIcon = Icons.Filled.Settings,
         unselectedIcon = Icons.Outlined.Settings,
         route = RouteConstants.SETTINGS
     ),
     BottomNavigationItem(
-        title = "Settings",
+        title = "Favorit",
         selectedIcon = Icons.Filled.Favorite,
         unselectedIcon = Icons.Outlined.FavoriteBorder,
         route = RouteConstants.FAVORITE

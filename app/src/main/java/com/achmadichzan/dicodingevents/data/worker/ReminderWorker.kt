@@ -1,6 +1,5 @@
 package com.achmadichzan.dicodingevents.data.worker
 
-import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
@@ -117,20 +116,13 @@ class ReminderWorker @AssistedInject constructor(
             .setAutoCancel(true)
             .build()
 
-        val channel = NotificationChannel(
-            CHANNEL_ID,
-            CHANNEL_NAME,
-            NotificationManager.IMPORTANCE_HIGH
-        )
-        notificationManager.createNotificationChannel(channel)
         notificationManager.notify(1001, notification)
     }
 
-
-
     companion object {
         const val CHANNEL_ID = "event_reminder_channel"
-        const val CHANNEL_NAME = "dicoding channel"
+        const val CHANNEL_NAME = "Event Reminders"
+        const val UNIQUE_WORK_NAME = "daily_reminder"
 
         fun schedule(context: Context) {
             val request = PeriodicWorkRequestBuilder<ReminderWorker>(1, TimeUnit.DAYS)
@@ -142,14 +134,14 @@ class ReminderWorker @AssistedInject constructor(
                 .build()
 
             WorkManager.getInstance(context).enqueueUniquePeriodicWork(
-                "daily_reminder",
+                UNIQUE_WORK_NAME,
                 ExistingPeriodicWorkPolicy.REPLACE,
                 request
             )
         }
 
         fun cancel(context: Context) {
-            WorkManager.getInstance(context).cancelUniqueWork("daily_reminder")
+            WorkManager.getInstance(context).cancelUniqueWork(UNIQUE_WORK_NAME)
         }
     }
 }

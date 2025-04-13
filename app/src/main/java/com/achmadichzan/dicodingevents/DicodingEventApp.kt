@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.util.Log
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
+import com.achmadichzan.dicodingevents.data.worker.ReminderWorker
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
@@ -22,8 +23,8 @@ class DicodingEventApp: Application(), Configuration.Provider {
 
     private fun createNotificationChannel() {
         val channel = NotificationChannel(
-            "event_reminder_channel",
-            "Event Reminders",
+            ReminderWorker.CHANNEL_ID,
+            ReminderWorker.CHANNEL_NAME,
             NotificationManager.IMPORTANCE_HIGH
         ).apply {
             description = "Reminders for the next upcoming event"
